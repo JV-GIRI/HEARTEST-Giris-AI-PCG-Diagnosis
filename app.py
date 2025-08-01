@@ -15,7 +15,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel(model_name="gemini-2.5-flash")
 
 # Streamlit Config
-st.set_page_config(page_title="AI PCG Diagnosis (Research Concept)", layout="wide")
+st.set_page_config(page_title="Research Concept_AI PCG Diagnosis", layout="wide")
 
 # Case database
 CASE_DB = "saved_cases.json"
@@ -115,8 +115,8 @@ def plot_waveform(sample_rate, audio_data, valve, amp_scale, noise_thresh, max_d
 
 # --------------------- UI ---------------------
 
-st.title("🔥 AI Phonocardiography Analysis")
-st.warning("**RESEARCH PURPOSE ONLY.** This is a research concept for AI-based detection of valvular heart disease using phonocardiography.", icon="⚠️")
+st.title("🫀 AI Phonocardiography Analysis")
+st.warning("**RESEARCH PURPOSE ONLY.** This is a research concept for **AI-based detection** of rheumatic valvular heart disease **(RVHD)** using phonocardiography.", icon="⚠️")
 
 # Sidebar Patient Info
 st.sidebar.header("🧑‍⚕️ Patient Info")
