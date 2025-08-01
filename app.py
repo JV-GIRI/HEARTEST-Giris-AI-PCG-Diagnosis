@@ -86,11 +86,11 @@ Simulated analysis:
 
 Return the diagnosis in the following structured and **concise** format:
 - Diagnosis:
-- Pathology Characteristics:
-- Waveform Characteristics:
+- Pathology :
+- Waveform :
 - Type of Murmur:
-- Severity (mild/moderate/severe):
-- Justification (why it is {valve[:2].lower()} - brief explanation):
+- Severity:
+- Justification ( why it is {valve[:2].lower()} ):
 Only provide the formatted text without any additional explanation or repetition.
 """
         response = model.generate_content(prompt)
@@ -113,8 +113,8 @@ def plot_waveform(sample_rate, audio_data, valve, amp_scale, noise_thresh, max_d
     return fig
 
 # --------------------- UI ---------------------
-st.title("🔥 AI Phonocardiography Analysis")
-st.warning("**RESEARCH PURPOSE ONLY.** This is a research concept for AI-based detection of valvular heart disease using phonocardiography.", icon="⚠️")
+st.title("🫀 HEARTEST AI PCG Analysis")
+st.warning("**RESEARCH PURPOSE ONLY.** This is a research concept for **AI-based detection** of rheumatic valvular heart disease **(RVHD)** using phonocardiography.", icon="⚠️")
 
 # Sidebar Patient Info
 st.sidebar.header("🧑‍⚕️ Patient Info")
@@ -129,7 +129,7 @@ if height > 0:
     st.sidebar.markdown(f"**BMI:** {bmi:.1f}")
 
 # Upload Section
-st.header("1. Upload PCG WAV files")
+st.header("1. Upload/Record PCG WAV files")
 cols = st.columns(4)
 valves = ["Aortic Valve", "Pulmonary Valve", "Mitral Valve", "Tricuspid Valve"]
 valve_files = {}
@@ -161,7 +161,7 @@ if st.button("🔬 Generate Diagnostic Report", type="primary"):
             st.write(sim_report)
             analysis_results[valve] = sim_report
 
-            st.markdown("##### 🧠 Gemini Diagnosis")
+            st.markdown("##### 🧠 AI Diagnosis")
             gemini_result = diagnose_with_gemini_text_only(sim_report, valve)
             st.success(gemini_result)
             analysis_results[valve + "_gemini"] = gemini_result
