@@ -8,14 +8,14 @@ import datetime
 import json
 import os
 
-# Gemini 2.5 Setup
+# Gemini 2.5 Setup (NEW)
 import google.generativeai as genai
-GEMINI_API_KEY = "AIzaSyDdGv--2i0pMbhH68heurl-LI1qJPJjzD4"
+GEMINI_API_KEY = "AIzaSyDdGv--2i0pMbhH68heurl-LI1qJPJjzD4"  # Replace with your actual key
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel(model_name="gemini-2.5-flash")
 
 # Streamlit Config
-st.set_page_config(page_title="Research Concept_AI PCG Diagnosis", layout="wide")
+st.set_page_config(page_title="AI PCG Diagnosis (Research Concept)", layout="wide")
 
 # Case database
 CASE_DB = "saved_cases.json"
@@ -75,27 +75,26 @@ def get_simulated_diagnosis(audio_data, sample_rate, valve):
 
     return SIMULATED_DIAGNOSES["normal"]
 
-# 🔁 Gemini 2.5 API with STRUCTURED + CONCISE Output
+# Gemini 2.5 Diagnosis - concise output
 def diagnose_with_gemini_text_only(sim_report, valve):
     try:
         prompt = f"""
-You are a clinical cardiologist. A phonocardiogram signal for the {valve} valve was analyzed. Based on this simulated interpretation:
+A phonocardiogram waveform for the {valve} was analyzed.
 
+Simulated analysis:
 {sim_report}
 
-Please summarize clearly in this format:
-- DIAGNOSIS: (Condition name only)
-- PATHOLOGY CHARACTERISTICS: (1-2 sentences)
-- WAVEFORM CHARACTERISTICS: (key waveform traits)
-- TYPE OF MURMUR: (systolic/diastolic/continuous, nature)
-- SEVERITY: (mild/moderate/severe)
-- JUSTIFICATION: (Why this condition is suspected based on waveform + murmur)
-
-Reply concisely, but clearly.
+Return the diagnosis in the following structured and **concise** format:
+- Diagnosis:
+- Pathology Characteristics:
+- Waveform Characteristics:
+- Type of Murmur:
+- Severity (mild/moderate/severe):
+- Justification (why it is {valve[:2].lower()} - brief explanation):
+Only provide the formatted text without any additional explanation or repetition.
 """
-
         response = model.generate_content(prompt)
-        return response.text
+        return response.text.strip()
     except Exception as e:
         return f"Gemini Diagnosis Error: {e}"
 
@@ -114,9 +113,8 @@ def plot_waveform(sample_rate, audio_data, valve, amp_scale, noise_thresh, max_d
     return fig
 
 # --------------------- UI ---------------------
-
-st.title("🫀 AI Phonocardiography Analysis")
-st.warning("**RESEARCH PURPOSE ONLY.** This is a research concept for **AI-based detection** of rheumatic valvular heart disease **(RVHD)** using phonocardiography.", icon="⚠️")
+st.title("🔥 AI Phonocardiography Analysis")
+st.warning("**RESEARCH PURPOSE ONLY.** This is a research concept for AI-based detection of valvular heart disease using phonocardiography.", icon="⚠️")
 
 # Sidebar Patient Info
 st.sidebar.header("🧑‍⚕️ Patient Info")
