@@ -1,0 +1,11 @@
+streamlit
+numpy
+pandas
+scikit-learn
+tensorflow
+keras
+librosa
+soundfile
+matplotlib
+python-dotenv
+google-generativeai
