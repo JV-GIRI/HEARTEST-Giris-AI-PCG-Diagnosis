@@ -15,7 +15,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel(model_name="gemini-2.5-flash")
 
 # Streamlit Config
-st.set_page_config(page_title="AI PCG Diagnosis (Research Concept)", layout="wide")
+st.set_page_config(page_title="Giri's AI PCG Diagnosis (Research Concept)", layout="wide")
 
 # Case database
 CASE_DB = "saved_cases.json"
@@ -113,11 +113,11 @@ def plot_waveform(sample_rate, audio_data, valve, amp_scale, noise_thresh, max_d
     return fig
 
 # --------------------- UI ---------------------
-st.title("🫀 HEARTEST AI PCG Analysis")
+st.title("❤️‍🔥 HEARTEST Giri's AI PCG Analysis")
 st.warning("**RESEARCH PURPOSE ONLY.** This is a research concept for **AI-based detection** of rheumatic valvular heart disease **(RVHD)** using phonocardiography.", icon="⚠️")
 
 # Sidebar Patient Info
-st.sidebar.header("🧑‍⚕️ Patient Info")
+st.sidebar.header("🏥 Patient Info")
 name = st.sidebar.text_input("Name")
 age = st.sidebar.number_input("Age", 0, 120, 30)
 gender = st.sidebar.selectbox("Gender", ["Male", "Female", "Other"])
@@ -141,7 +141,7 @@ st.header("2. AI Analysis & Report")
 
 analysis_results = {}
 
-if st.button("🔬 Generate Diagnostic Report", type="primary"):
+if st.button("💡 Generate Diagnostic Report", type="primary"):
     for valve, file in valve_files.items():
         if file is not None:
             st.subheader(f"{valve} Analysis")
@@ -168,7 +168,7 @@ if st.button("🔬 Generate Diagnostic Report", type="primary"):
             st.markdown("---")
 
 # Save Case
-if st.button("💾 Save Case"):
+if st.button("📇 Save Case"):
     case = {
         "datetime": datetime.datetime.now().isoformat(),
         "name": name,
@@ -184,8 +184,8 @@ if st.button("💾 Save Case"):
     st.success("Case saved successfully!")
 
 # View History
-if st.button("📂 View Case History"):
-    st.header("📁 Past Cases")
+if st.button("🗂️ View Case History"):
+    st.header("📂 Past Cases")
     for case in reversed(load_cases()):
         st.subheader(case["name"] + f" (Age {case['age']}, {case['gender']})")
         st.caption(f"Recorded: {case['datetime']}")
